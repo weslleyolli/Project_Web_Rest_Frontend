@@ -28,7 +28,7 @@ export const Brand = styled.div`
 
     > h1 {
         font-size: 24px;
-        color: ${({ theme }) => theme.COLORS.ORANGE};
+        color: #996DFF;
     }
 `
 
@@ -46,8 +46,9 @@ export const Menu = styled.ul`
 
 export const Search = styled.div`
     grid-area: search;
+    
 
-    padding: 64px 64px 0;
+    padding: 50px 64px 0;
     
 `
 export const Content = styled.div`
@@ -59,7 +60,7 @@ export const Content = styled.div`
 export const NewNote = styled(Link)`
     grid-area: newnote;
 
-    background-color: ${({ theme }) => theme.COLORS.ORANGE};
+    background-color: #996DFF;
     color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
 
 
@@ -71,4 +72,10 @@ export const NewNote = styled(Link)`
         margin-right: 8px;
     }
 
+`
+
+export const ContainerProducts = styled.div`
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
 `

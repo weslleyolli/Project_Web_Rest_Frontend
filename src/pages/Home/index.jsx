@@ -1,6 +1,6 @@
 import { FiPlus, FiSearch } from "react-icons/fi"
 
-import { Container, Brand, Menu, Search, Content, NewNote } from "./styles";
+import { Container, Brand, Menu, Search, Content, NewNote, ContainerProducts } from "./styles";
 
 import { Header } from "../../components/Header"
 import { Input } from "../../components/Input"
@@ -12,20 +12,23 @@ export function Home() {
     return (
         <Container>
             <Brand>
-                <h1>Rocket Notes</h1>
+                <h1>Supermarket</h1>
             </Brand>
 
             <Header />
 
             <Menu>
                 <li>
-                    <ButtonText title="Todos" isActive={true} />
+                    <ButtonText title="All Itens" isActive={true} />
                 </li>
                 <li>
-                    <ButtonText title="React" />
+                    <ButtonText title="Drinks" />
                 </li>
                 <li>
-                    <ButtonText title="NodeJS" />
+                    <ButtonText title="Butchers" />
+                </li>
+                <li>
+                    <ButtonText title="Fruits" />
                 </li>
 
             </Menu>
@@ -35,15 +38,51 @@ export function Home() {
             </Search>
 
             <Content>
-                <Section title="minhas notas">
-                    <Note data={{
-                        title: 'React',
-                        tags: [
-                            { id: '1', name: 'React' },
-                            { id: '2', name: 'Rocketseat' }
-                        ]
-                    }}
-                    />
+                <Section title="Products">
+                    <ContainerProducts>
+                        <Note data={{
+                            title: 'Coffee',
+                            description: 'Traditional coffee made with hot water and ground beans',
+                            price: "$ 4",
+                        }}
+                        />
+                        <Note data={{
+                            title: 'Coffee',
+                            description: 'Traditional coffee made with hot water and ground beans',
+                            price: "$ 4",
+                        }}
+                        />
+                        <Note data={{
+                            title: 'Coffee',
+                            description: 'Traditional coffee made with hot water and ground beans',
+                            price: "$ 4",
+                        }}
+                        />
+                        <Note data={{
+                            title: 'Coffee',
+                            description: 'Traditional coffee made with hot water and ground beans',
+                            price: "$ 4",
+                        }}
+                        />
+                        <Note data={{
+                            title: 'Coffee',
+                            description: 'Traditional coffee made with hot water and ground beans',
+                            price: "$ 4",
+                        }}
+                        />
+                        <Note data={{
+                            title: 'Coffee',
+                            description: 'Traditional coffee made with hot water and ground beans',
+                            price: "$ 4",
+                        }}
+                        />
+                        <Note data={{
+                            title: 'Coffee',
+                            description: 'Traditional coffee made with hot water and ground beans',
+                            price: "$ 4",
+                        }}
+                        />
+                    </ContainerProducts>
                 </Section>
             </Content>
 
