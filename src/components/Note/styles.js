@@ -22,11 +22,10 @@ export const Container = styled.button`
     margin-bottom: 10px;
 
     >h1 {
-        flex: 1;
         font-weight: 700;
         font-size: 20px;
         color: ${({ theme }) => theme.COLORS.WHITE};
-        margin-bottom: 10px;
+
     }
 
     > p {

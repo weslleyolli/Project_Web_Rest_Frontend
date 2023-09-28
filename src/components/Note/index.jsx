@@ -2,7 +2,6 @@
 
 
 import { Container, ImageProduct } from './styles'
-import { Tag } from '../Tag'
 import { FiMinus, FiPlus, FiShoppingCart } from 'react-icons/fi'
 import { useState } from 'react'
 

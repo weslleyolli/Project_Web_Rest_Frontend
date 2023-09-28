@@ -15,28 +15,61 @@ export const Container = styled.div`
         overflow-y: auto;
     }
 
-    .tags {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-    }
-
 `
 
 export const Form = styled.form`
     max-width: 550px;
-    margin: 20px auto;
+    margin: 10px auto;
 
     > header {
         display: flex;
         align-items: center;
         justify-content: space-between;
 
-        margin-bottom: 36px;
+        margin-bottom: 20px;
 
         a {
             font-size: 20px;
-            color: ${({ theme }) => theme.COLORS.GRAY_100};
+            color: ${({ theme }) => theme.COLORS.PURPLE};
         }
+
+
+    }
+
+    > div {
+        color: ${({ theme }) => theme.COLORS.GRAY_100};
+        
+        h2 {
+            font-weight: 300;
+            font-size: 20px;
+        }
+        div{
+            border-bottom: 1px solid ${({ theme }) => theme.COLORS.BACKGROUND_700} ;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+    }
+
+    > section {
+        display: flex;
+        flex-direction: column;
+
+        > div {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            article {
+                background-color: ${({ theme }) => theme.COLORS.PURPLE};
+                padding: 10px;
+                border-radius: 10px;
+                width: 25%;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+            }
+
+        }
+
     }
 `

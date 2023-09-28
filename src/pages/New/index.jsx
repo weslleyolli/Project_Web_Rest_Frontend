@@ -4,7 +4,7 @@ import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
 import { Input } from '../../components/Input'
 import { Textarea } from '../../components/Textarea'
-import { NoteItem } from '../../components/NoteItem'
+
 import { Section } from '../../components/Section'
 
 
@@ -19,22 +19,33 @@ export function New() {
             <main>
                 <Form>
                     <header>
-                        <h1>Create Note</h1>
+                        <h1>Create Product</h1>
                         <Link to="/">back</Link>
                     </header>
 
-                    <Input placeholder="Title" />
-                    <Textarea placeholder="Comments" />
+                    <Input placeholder="Product name" />
+                    <Textarea placeholder="Expiration date" />
 
-                    <Section title="Links">
-                        <NoteItem value="https://google.com.br" />
-                        <NoteItem isNew placeholder="New link" />
-                    </Section>
+                    <div >
+                        <h2>Value</h2>
+                        <div></div>
+                        <Input placeholder="$" />
+                    </div>
 
-                    <Section title="markers">
-                        <div className='tags'>
-                            <NoteItem value="React"/>
-                            <NoteItem isNew placeholder="New tag"/>
+                    <Section title="Type of Product">
+                        <div>
+                            <article className='tags'>
+                                <label htmlFor="drink">Drink</label>
+                                <input type="checkbox" name="drink" />
+                            </article>
+                            <article className='tags'>
+                                <label htmlFor="drink">Butchers</label>
+                                <input type="checkbox" name="drink" />
+                            </article>
+                            <article className='tags'>
+                                <label htmlFor="drink">Fruits</label>
+                                <input type="checkbox" name="drink" />
+                            </article>
                         </div>
                     </Section>
 

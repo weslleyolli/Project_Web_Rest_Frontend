@@ -22,7 +22,7 @@ export function Home() {
                     <ButtonText title="All Itens" isActive={true} />
                 </li>
                 <li>
-                    <ButtonText title="Drinks" />
+                    <ButtonText title="Promotions" />
                 </li>
                 <li>
                     <ButtonText title="Butchers" />
@@ -30,11 +30,14 @@ export function Home() {
                 <li>
                     <ButtonText title="Fruits" />
                 </li>
+                <li>
+                    <ButtonText title="Drinks" />
+                </li>
 
             </Menu>
 
             <Search>
-                <Input placeholder="Search for title" icon={FiSearch} />
+                <Input className="p-10" placeholder="Search for title" icon={FiSearch} />
             </Search>
 
             <Content>
@@ -42,43 +45,43 @@ export function Home() {
                     <ContainerProducts>
                         <Note data={{
                             title: 'Coffee',
-                            description: 'Traditional coffee made with hot water and ground beans',
+                            description: 'Expiration date: 25/11/2023',
                             price: "$ 4",
                         }}
                         />
                         <Note data={{
                             title: 'Coffee',
-                            description: 'Traditional coffee made with hot water and ground beans',
+                            description: 'Expiration date: 25/11/2023',
                             price: "$ 4",
                         }}
                         />
                         <Note data={{
                             title: 'Coffee',
-                            description: 'Traditional coffee made with hot water and ground beans',
+                            description: 'Expiration date: 25/11/2023',
                             price: "$ 4",
                         }}
                         />
                         <Note data={{
                             title: 'Coffee',
-                            description: 'Traditional coffee made with hot water and ground beans',
+                            description: 'Expiration date: 25/11/2023',
                             price: "$ 4",
                         }}
                         />
                         <Note data={{
                             title: 'Coffee',
-                            description: 'Traditional coffee made with hot water and ground beans',
+                            description: 'Expiration date: 25/11/2023',
                             price: "$ 4",
                         }}
                         />
                         <Note data={{
                             title: 'Coffee',
-                            description: 'Traditional coffee made with hot water and ground beans',
+                            description: 'Expiration date: 25/11/2023',
                             price: "$ 4",
                         }}
                         />
                         <Note data={{
                             title: 'Coffee',
-                            description: 'Traditional coffee made with hot water and ground beans',
+                            description: 'Expiration date: 25/11/2023',
                             price: "$ 4",
                         }}
                         />
@@ -88,7 +91,7 @@ export function Home() {
 
             <NewNote to='/new'>
                 <FiPlus />
-                Create Note
+                Create products
             </NewNote>
         </Container>
     )
