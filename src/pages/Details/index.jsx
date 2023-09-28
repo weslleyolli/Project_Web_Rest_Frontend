@@ -30,7 +30,7 @@ export function Details() {
             <p>$4</p>
           </Section>
 
-          <Button title="voltar" />
+          <Button title="Back" />
         </Content>
       </main>
 
