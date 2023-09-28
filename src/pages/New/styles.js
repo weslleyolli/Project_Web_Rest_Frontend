@@ -48,6 +48,19 @@ export const Form = styled.form`
             padding-bottom: 16px;
             margin-bottom: 24px;
         }
+        article {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            div {
+                width: 35%;
+                display: flex;
+                align-items: center;
+                padding-bottom: 0px;
+            }
+        }
     }
 
     > section {

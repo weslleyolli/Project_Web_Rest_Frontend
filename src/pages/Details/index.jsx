@@ -13,32 +13,21 @@ export function Details() {
 
       <main>
         <Content>
-          <ButtonText title="Delete notes" />
-          
-          <h1>
-            Introduction to react
-          </h1>
+          <div>
+            <ButtonText title="Delete Product" />
+            <ButtonText title="Create promotion" />
+          </div>
 
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Incidunt ab corporis qui maxime fuga unde minima dolorem vero
-            laborum. Eligendi fugiat excepturi placeat, ad quaerat unde 
-            mollitia dolorem ab suscipit?
-          </p>
-          <Section title="Utils links">
-            <Links >
-              <li>
-                <a href="#">https://www.rocketseat.com.br/</a>
-              </li>
-              <li>
-                <a href="#">https://www.rocketseat.com.br/</a>
-              </li>
-            </Links>
+          <Section title="Product">
+            <p>Coffe</p>
           </Section>
 
-          <Section title="Markers">
-            <Tag title="express" />
-            <Tag title="notejs" />
+          <Section title="Expiration date">
+            <p>25/11/2023</p>
+          </Section>
+
+          <Section title="Value">
+            <p>$4</p>
           </Section>
 
           <Button title="voltar" />

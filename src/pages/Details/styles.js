@@ -12,8 +12,8 @@ export const Container = styled.div`
 
     > main {
         grid-area: content;
-        overflow-y: scroll;
-        padding:  64px 0;
+        overflow-y: auto;
+        padding:  10px 0;
     }
 `
 
@@ -36,6 +36,13 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
 
+    > div {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        gap: 20px;
+    }
+
     > button:first-child {
         align-self: end;
     }
@@ -48,7 +55,7 @@ export const Content = styled.div`
 
     > p {
         font-size: 16px;
-        margin-top: 16px;
+        margin-top: 5px;
         text-align: justify;
     }
 `

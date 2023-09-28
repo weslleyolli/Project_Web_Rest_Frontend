@@ -27,9 +27,12 @@ export function New() {
                     <Textarea placeholder="Expiration date" />
 
                     <div >
-                        <h2>Value</h2>
+                        <h2>Value and Image of product</h2>
                         <div></div>
-                        <Input placeholder="$" />
+                        <article>
+                            <Input placeholder="$" />
+                            <Input type="file" />
+                        </article>
                     </div>
 
                     <Section title="Type of Product">
