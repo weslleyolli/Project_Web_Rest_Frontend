@@ -1,14 +1,61 @@
+import { useState,  useEffect } from "react";
 import { FiPlus, FiSearch } from "react-icons/fi"
-
-import { Container, Brand, Menu, Search, Content, NewNote, ContainerProducts } from "./styles";
+import { useNavigate } from "react-router-dom";
 
 import { Header } from "../../components/Header"
 import { Input } from "../../components/Input"
 import { Section } from "../../components/Section"
-import { Note } from "../../components/Note"
+import { Product } from "../../components/Product"
 import { ButtonText } from "../../components/ButtonText"
+import { api } from "../../services/api";
+
+import { Container, Brand, Menu, Search, Content, NewNote, ContainerProducts } from "./styles";
 
 export function Home() {
+    const [search, setSearch] = useState("")
+    const [tags, setTags] = useState([])
+    const [tagsSelected, setTagsSelected] = useState([])
+    const [notes, setNotes] = useState([])
+
+    const navigate = useNavigate()
+
+    function handleTagSelected(tagName) {
+        if (tagName === "all") {
+            return setTagsSelected([])
+        }
+
+        const alreadySelected = tagsSelected.includes(tagName)
+
+        if (alreadySelected) {
+            const filterTags = tagsSelected.filter(tag => tag !== tagName)
+            setTagsSelected(filterTags)
+        } else {
+            setTagsSelected(prevState => [...prevState, tagName])
+        }
+
+
+    }
+
+    function handleDetails(id) {
+        navigate(`/details/${id}`)
+    }
+
+    useEffect(() => {
+        async function fetchTags() {
+            const response = await api.get("/tags")
+            setTags(response.data)
+        }
+        fetchTags()
+    }, [])
+
+    useEffect(() => {
+        async function fetchNotes() {
+            const response = await api.get(`/notes?title=${search}&tags=${tagsSelected}`)
+            setNotes(response.data)
+        }
+
+        fetchNotes()
+    }, [tagsSelected, search])
     return (
         <Container>
             <Brand>
@@ -19,72 +66,47 @@ export function Home() {
 
             <Menu>
                 <li>
-                    <ButtonText title="All Itens" isActive={true} />
+                    <ButtonText
+                        title="All"
+                        onClick={() => handleTagSelected("all")}
+                        $isactive={tagsSelected.length === 0}
+                    />
                 </li>
-                <li>
-                    <ButtonText title="Promotions" />
-                </li>
-                <li>
-                    <ButtonText title="Butchers" />
-                </li>
-                <li>
-                    <ButtonText title="Fruits" />
-                </li>
-                <li>
-                    <ButtonText title="Drinks" />
-                </li>
+                {
+                    tags && tags.map(tag => (
+                        <li key={String(tag.id)}>
+                            <ButtonText
+                                title={tag.name}
+                                onClick={() => handleTagSelected(tag.name)}
+                                $isactive={tagsSelected.includes(tag.name)}
+                            />
+                        </li>
+                    ))
+
+                }
 
             </Menu>
 
             <Search>
-                <Input className="p-10" placeholder="Search for title" icon={FiSearch} />
+                <Input 
+                    placeholder="Search for title"
+                    icon={FiSearch} 
+                    onChange={(e) => setSearch(e.target.value)}
+                />
             </Search>
 
             <Content>
                 <Section title="Products">
                     <ContainerProducts>
-                        <Note data={{
-                            title: 'Coffee',
-                            description: 'Expiration date: 25/11/2023',
-                            price: "$ 4",
-                        }}
-                        />
-                        <Note data={{
-                            title: 'Coffee',
-                            description: 'Expiration date: 25/11/2023',
-                            price: "$ 4",
-                        }}
-                        />
-                        <Note data={{
-                            title: 'Coffee',
-                            description: 'Expiration date: 25/11/2023',
-                            price: "$ 4",
-                        }}
-                        />
-                        <Note data={{
-                            title: 'Coffee',
-                            description: 'Expiration date: 25/11/2023',
-                            price: "$ 4",
-                        }}
-                        />
-                        <Note data={{
-                            title: 'Coffee',
-                            description: 'Expiration date: 25/11/2023',
-                            price: "$ 4",
-                        }}
-                        />
-                        <Note data={{
-                            title: 'Coffee',
-                            description: 'Expiration date: 25/11/2023',
-                            price: "$ 4",
-                        }}
-                        />
-                        <Note data={{
-                            title: 'Coffee',
-                            description: 'Expiration date: 25/11/2023',
-                            price: "$ 4",
-                        }}
-                        />
+                        {
+                            notes.map(note => (
+                                <Product
+                                    key={String(note.id)}
+                                    data={note}
+                                    onClick={() => handleDetails(note.id)}
+                                />
+                            ))
+                        }
                     </ContainerProducts>
                 </Section>
             </Content>

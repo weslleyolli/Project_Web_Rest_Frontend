@@ -5,7 +5,7 @@ import { Container, ImageProduct } from './styles'
 import { FiMinus, FiPlus, FiShoppingCart } from 'react-icons/fi'
 import { useState } from 'react'
 
-export function Note({ data, ...rest }) {
+export function Product({ data, ...rest }) {
     const [quantity, setQuantity] = useState(0)
 
     const handleAdd = () => {
