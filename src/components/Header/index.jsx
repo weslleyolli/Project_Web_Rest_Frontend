@@ -1,20 +1,28 @@
 import { RiShutDownLine } from "react-icons/ri"
 import { Container, Profile, Logout } from "./styles";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/auth";
+
 
 
 export function Header() {
+    const { signOut } = useAuth();
+    const navigate = useNavigate()
+
+    function handleSignOut() {
+        navigate("/")
+        signOut()
+    }
     return (
         <Container >
-            <Profile to='/profile'>
-                <img src="https://github.com/weslleyolli.png" alt="user Photo" />
-
+            <Profile>
                 <div>
                     <span>Welcome</span>
                     <strong> Weslley Oliveira</strong>
                 </div>
             </Profile>
             <Logout>
-                <RiShutDownLine />
+                <RiShutDownLine onClick={handleSignOut} />
             </Logout>
         </Container>
     )
