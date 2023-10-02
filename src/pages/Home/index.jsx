@@ -15,7 +15,7 @@ export function Home() {
     const [search, setSearch] = useState("")
     const [tags, setTags] = useState([])
     const [tagsSelected, setTagsSelected] = useState([])
-    const [notes, setNotes] = useState([])
+    const [product, setProduct] = useState([])
 
     const navigate = useNavigate()
 
@@ -51,7 +51,7 @@ export function Home() {
     useEffect(() => {
         async function fetchNotes() {
             const response = await api.get(`/notes?title=${search}&type=${tagsSelected}`)
-            setNotes(response.data)
+            setProduct(response.data)
         }
 
         fetchNotes()
@@ -99,7 +99,7 @@ export function Home() {
                 <Section title="Products">
                     <ContainerProducts>
                         {
-                            notes.map(note => (
+                            product.map(note => (
                                 <Product
                                     key={String(note.id)}
                                     data={note}
