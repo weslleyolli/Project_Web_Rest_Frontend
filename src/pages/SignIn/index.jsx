@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import setAuthToken from '/Users/fcabral/Documents/Obsidian Vault/Unifacisa - Módulo 8/WEB com rest/Códigos/Fase02/PDF_Projeto.pdf/Project_Web_Rest_Frontend/src/services/token.js';
+import setAuthToken from '../../services/token';
 
 import {FiMail, FiLock } from 'react-icons/fi'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom' 
 
 import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
@@ -16,6 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export function SignIn() {
     const [email, setEmail] =  useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,9 +37,13 @@ export function SignIn() {
             setAuthToken(response.data.token);
             
             toast.success('Bem-vindo!');
+
+            setTimeout(() => {
+                navigate('home');
+            }, 2000);
         } catch (error) {
             toast.error('Erro ao logar.');
-            console.error('Erro ao criar usuário:', error);
+            console.error('Erro ao logar:', error);
         }
     }
 
