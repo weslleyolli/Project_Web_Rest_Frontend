@@ -1,25 +1,33 @@
-import { FiPlus, FiX} from "react-icons/fi"
-import { Container } from './styles'
+// import React from "react";
+import PropTypes from "prop-types";
+import { FiPlus, FiX } from "react-icons/fi";
+import { Container } from "./styles";
 
-// eslint-disable-next-line react/prop-types
-export function TagItem({ isNew, value, onClick, ...rest }) {
-    return (
-        <Container isNew={isNew}>
-            <input 
-                type="text"
-                value={value}
-                readOnly={!isNew}
-                {...rest}
-            />
+function TagItem({ isNew, value, onClick, ...rest }) {
+  return (
+    <Container>
+      <input
+        type="text"
+        value={value}
+        readOnly={!isNew}
+        {...rest}
+      />
 
-            <button
-                type="button"
-                onClick={onClick}
-                className={isNew ? 'button-add' : 'button-delete'}
-            >
-                {isNew ? <FiPlus /> : <FiX />}
-            </button>
-
-        </Container>
-    )
+      <button
+        type="button"
+        onClick={onClick}
+        className={`button-${isNew ? "add" : "delete"}`}
+      >
+        {isNew ? <FiPlus /> : <FiX />}
+      </button>
+    </Container>
+  );
 }
+
+TagItem.propTypes = {
+  isNew: PropTypes.bool.isRequired,
+  value: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+export { TagItem };

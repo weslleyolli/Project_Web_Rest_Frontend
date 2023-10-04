@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import backgroundImage from '../../assets/Coffee.png'
+// import backgroundImage from '../../assets/Coffee.png'
 
 export const Container = styled.button`
     width: 18%;
@@ -86,10 +86,10 @@ export const Container = styled.button`
 `
 
 export const ImageProduct = styled.div`
-    background: url(${backgroundImage}) no-repeat center center;
+    background: url(${(props) => props.src}) no-repeat center center;
     width: 64px;
     height: 64px;
     margin-top: -40px;
     margin-bottom: 15px;
-`
+`;
 

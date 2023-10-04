@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import setAuthToken from '../../services/token';
 
 import {FiMail, FiLock } from 'react-icons/fi'
 
-import { Link, useNavigate } from 'react-router-dom' 
+import { Link, Navigate } from 'react-router-dom' 
 
 import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
@@ -16,7 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export function SignIn() {
     const [email, setEmail] =  useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,22 +29,26 @@ export function SignIn() {
         try {
             const response = await axios.post('http://localhost:3000/login', formData);
             console.log('Usuário logado com sucesso!', response.data);
-            
-            // Armazene o token no localStorage
-            localStorage.setItem('token', 'Bearer ' + response.data.token);
-            
+        
+            // Armazene o token no localStorage sem o prefixo "Bearer"
+            localStorage.setItem('token', response.data.token); 
+        
             // Configure o token nos cabeçalhos
             setAuthToken(response.data.token);
-            
+        
             toast.success('Bem-vindo!');
-
+        
             setTimeout(() => {
-                navigate('home');
+                setLoggedIn(true)
             }, 2000);
         } catch (error) {
             toast.error('Erro ao logar.');
             console.error('Erro ao logar:', error);
         }
+    }
+
+    if(loggedIn){
+        return <Navigate to="/home" />
     }
 
     return (

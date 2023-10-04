@@ -1,20 +1,15 @@
-import React from "react";
+// import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import { useAuth } from "../hooks/auth";
-
 import { AppRoutes } from "./app.routes";
 import { AuthRoutes } from "./auth.routes";
 
-export function Routes() {
-  const { user } = useAuth();
+export function App() {
+  // Verifica se há um token no localStorage
+  const hasToken = !!localStorage.getItem("token");
 
-  if (user !== null) {
-    // O 'user' está definido
-    console.log("O usuário está definido:", user);
-  } else {
-    // O 'user' não está definido
-    console.log("O usuário não está definido");
-  }
-
-  return <BrowserRouter>{user ? <AppRoutes /> : <AuthRoutes />}</BrowserRouter>;
+  return (
+    <BrowserRouter>
+      {hasToken ? <AppRoutes /> : <AuthRoutes />}
+    </BrowserRouter>
+  );
 }

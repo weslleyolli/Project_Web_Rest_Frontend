@@ -16,12 +16,22 @@ export function Product({ data, ...rest }) {
         setQuantity(quantity - 1)
     }
 
+    // console.log(data.src);
+
     return (
         <Container {...rest}>
-            <ImageProduct />
-            <h1>{data.title}</h1>
+            <ImageProduct src={data.src}/>
+            <h1>{data.name}</h1>
             <p>{data.description}</p>
-            <h4>{data.price}</h4>
+            <h4>
+                 {/* Formatando para padrão BR com 2 casas após a vírgula */}
+                {new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                }).format(data.price)}
+            </h4>
             <footer>
                 <div>
                     <FiMinus onClick={handleRemove} />
