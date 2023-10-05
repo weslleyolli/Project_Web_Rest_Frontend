@@ -27,12 +27,14 @@ export function Details() {
         const response = await api.get(`/products/${id}`, config);
         // Formatar a data expDate para "dd/mm/yyyy"
         const date = new Date(response.data.expDate);
-        const day = date.getDate().toString().padStart(2, "0");
+        const offset = date.getTimezoneOffset();
+        date.setMinutes(date.getMinutes() + offset); // Ajusta o fuso horário
+        const day = (date.getDate()).toString().padStart(2, "0");
         const month = (date.getMonth() + 1).toString().padStart(2, "0");
-        const year = date.getFullYear();
+        const year = date.getFullYear();        
         const formattedExpDate = `${day}/${month}/${year}`;
 
-        // Adicionar a data formatada ao objeto do produto
+        // Adiciona a data formatada 
         response.data.formattedExpDate = formattedExpDate;
 
         setProduct(response.data);
@@ -43,10 +45,6 @@ export function Details() {
 
     fetchProductDetails();
   }, [id]);
-
-  // async function handleCreatePromotion(){
-  //   navigate('/produc')
-  // }
 
   async function handleDeleteProduct() {
     try {
@@ -61,7 +59,7 @@ export function Details() {
 
       toast.dark("Product deleted successfully");
       setTimeout(() => {
-        navigate(-1);
+        navigate('/home');
       }, 2000);
     } catch (error) {
       toast.dark("Error for delete product");
@@ -73,6 +71,10 @@ export function Details() {
     navigate(`/products/${id}/promotion`)
   }
 
+  async function handleEditProduct(){
+    navigate(`/products/${id}/edit`)
+  }
+
   return (
     <Container>
       <Header />
@@ -82,12 +84,16 @@ export function Details() {
           <Content>
             <div>
               <ButtonText
-                title="Delete Product"
-                onClick={handleDeleteProduct}
+                title="Edit Product"
+                onClick={handleEditProduct}
               />
               <ButtonText 
-              title="Create promotion"
-              onClick={handleCreatePromotion}
+                title="Create promotion"
+                onClick={handleCreatePromotion}
+              />
+              <ButtonText
+                title="Delete Product"
+                onClick={handleDeleteProduct}
               />
             </div>
 

@@ -57,7 +57,7 @@ export function New() {
       name,
       src,
       code,
-      price: parseFloat(price),
+      price,
       qtd,
       category: selectedTags,
       expDate,

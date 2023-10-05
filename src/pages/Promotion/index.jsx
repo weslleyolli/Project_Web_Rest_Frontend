@@ -92,9 +92,12 @@ export function Promotion() {
         const response = await api.get(`/products/${id}`, config);
         // Formatar a data expDate para "dd/mm/yyyy"
         const date = new Date(response.data.expDate);
-        const day = date.getDate().toString().padStart(2, "0");
+        const offset = date.getTimezoneOffset();
+        date.setMinutes(date.getMinutes() + offset); // Ajusta o fuso horário
+        const day = (date.getDate()).toString().padStart(2, "0");
         const month = (date.getMonth() + 1).toString().padStart(2, "0");
         const year = date.getFullYear();
+        
         const formattedExpDate = `${day}/${month}/${year}`;
 
         // Adicionar a data formatada ao objeto do produto
