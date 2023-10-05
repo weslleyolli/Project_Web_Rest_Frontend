@@ -25,7 +25,7 @@ function TagItem({ isNew, value, onClick, ...rest }) {
 }
 
 TagItem.propTypes = {
-  isNew: PropTypes.bool.isRequired,
+  isNew: PropTypes.bool,
   value: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };

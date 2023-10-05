@@ -12,7 +12,7 @@ import { TagItem } from "../../components/TagItem";
 import { Section } from "../../components/Section";
 
 import { Container, Form } from "./styles";
-// import { useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 export function New() {
   const [name, setName] = useState("");
@@ -20,20 +20,22 @@ export function New() {
   const [price, setPrice] = useState("");
   const [qtd, setQtd] = useState("");
   const [src, setSrc] = useState("");
-  const [tags, setTags] = useState([]);
   const [category, setCategory] = useState("");
+  const [code, setCode] = useState("");
+  const [selectedTags, setSelectedTags] = useState([]);
 
   const navigate = useNavigate();
 
   function handleRemoveTags(deleted) {
-    setTags((prevState) => prevState.filter((tag) => tag !== deleted));
+    setSelectedTags((prevState) => prevState.filter((tag) => tag !== deleted));
   }
 
   function handleAddTags() {
-    setTags((prevState) => [...prevState, category]);
+    setSelectedTags((prevState) => [...prevState, category]);
     setCategory("");
   }
 
+  // Verificando se há campos vazios
   async function handleNewNote() {
     if (!name || !src || !price || !qtd || !expDate) {
         return alert("Please, fill in all fields");
@@ -50,23 +52,28 @@ export function New() {
         return;
     }
 
+    // Modelo da requisição
     const productData = {
         name,
         src,
-        price: parseFloat(price).toFixed(2),
+        code,
+        price: parseFloat(price),
         qtd,
-        category,
+        category: selectedTags,
         expDate
     }
 
+    // Fazendo a requisição
     try {
-        // Fazendo a requisição
         await api.post("/product", productData);
-        alert("Product Created");
-        navigate(-1);
+        toast.dark('Product successfully created');
+
+        setTimeout(() => {
+          navigate(-1);
+      }, 3000);
     } catch (err) {
         console.error(err);
-        alert('Erro ao criar o produto.')
+        toast.dark('Error creating product');
     }
   }
 
@@ -78,6 +85,7 @@ export function New() {
 //     }
 //   }, []);
 
+// Criando a página de produtos
   return (
     <Container>
       <Header />
@@ -93,6 +101,10 @@ export function New() {
             placeholder="Product name"
             onChange={(e) => setName(e.target.value)}
           />
+          <Input
+            placeholder="Product code"
+            onChange={(e) => setCode(e.target.value)}
+          />
           <Textarea
             placeholder="Expiration date (YYYY-MM-DD)"
             onChange={(e) => setExpDate(e.target.value)}
@@ -100,7 +112,7 @@ export function New() {
 
           <div>
             <h2>Value and Image of product</h2>
-            <div>{src && <img src={src} alt="Product" />}</div>
+            {/* <div>{src && <img src={src} alt="Product" />}</div> */}
             <article>
               <Input
                 placeholder="$ Price"
@@ -120,15 +132,15 @@ export function New() {
 
           <Section title="Type of Product">
             <div className="tags">
-              {tags.map((tag, index) => (
+              {selectedTags.map((tag, index) => (
                 <TagItem
                   key={String(index)}
-                  value={category}
+                  value={tag}
                   onClick={() => handleRemoveTags(tag)}
                 />
               ))}
               <TagItem
-                isNew
+                isNew={true}
                 placeholder="Category"
                 onChange={(e) => setCategory(e.target.value)}
                 value={category}
@@ -140,6 +152,7 @@ export function New() {
           <Button title="Save" onClick={handleNewNote} />
         </Form>
       </main>
+      <ToastContainer />
     </Container>
   );
 }

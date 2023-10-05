@@ -6,8 +6,8 @@ import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 import { Section } from "../../components/Section";
 import { Product } from "../../components/Product";
-// import { ButtonText } from "../../components/ButtonText";
 import { api } from "../../services/api";
+import { ButtonText } from "../../components/ButtonText";
 
 import {
   Container,
@@ -20,49 +20,65 @@ import {
 } from "./styles";
 
 export function Home() {
-  const [search, setSearch] = useState("");
-//   const [tags, setTags] = useState([]);
-//   const [tagsSelected, setTagsSelected] = useState([]);
-  const [products, setProducts] = useState([]); // Alterado o nome da variável para "products"
+  const [searchTerm, setSearchTerm] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [tagsSelected, setTagsSelected] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   const navigate = useNavigate();
 
-//   function handleTagSelected(tagName) {
-//     if (tagName === "all") {
-//       return setTagsSelected([]);
-//     }
-
-//     const alreadySelected = tagsSelected.includes(tagName);
-
-//     if (alreadySelected) {
-//       const filterTags = tagsSelected.filter((tag) => tag !== tagName);
-//       setTagsSelected(filterTags);
-//     } else {
-//       setTagsSelected((prevState) => [...prevState, tagName]);
-//     }
-//   }
+  function handleTagSelected(tagName) {
+    if (tagName === "all") {
+      setTagsSelected([]);
+    } else {
+      setTagsSelected([tagName]);
+    }
+  }
 
   function handleDetails(id) {
     navigate(`/products/${id}`);
   }
 
-//   useEffect(() => {
-//     async function fetchTags() {
-//       const response = await api.get("/products");
-//       setTags(response.data);
-//     }
-//     fetchTags();
-//   }, []);
-
+  // Categorias
   useEffect(() => {
     async function fetchProducts() {
       const response = await api.get(`/products`);
       setProducts(response.data);
+
+      const allCategories = response.data.flatMap(
+        (product) => product.category
+      );
+      const uniqueCategories = Array.from(new Set(allCategories));
+      setCategories(uniqueCategories);
     }
 
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    // Quando tagsSelected mudar, aplique o filtro
+    let filteredProducts = products;
+
+    // Botões das tags
+    if (tagsSelected.length > 0) {
+      filteredProducts = products.filter((product) =>
+        product.category.includes(tagsSelected[0])
+      );
+    }
+
+    // Pesquisa por nome
+    if (searchTerm.trim() !== "") {
+      const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+      filteredProducts = filteredProducts.filter((product) =>
+        product.name.toLowerCase().includes(normalizedSearchTerm)
+      );
+    }
+
+    setFilteredProducts(filteredProducts);
+  }, [tagsSelected, searchTerm, products]);
+
+  // Retornando o frontend
   return (
     <Container>
       <Brand>
@@ -72,37 +88,43 @@ export function Home() {
       <Header />
 
       <Menu>
-        {/* <li>
+        <li>
           <ButtonText
-            title="All"
             onClick={() => handleTagSelected("all")}
-            $isactive={tagsSelected.length === 0}
-          />
+            className={tagsSelected.length === 0 ? "active" : ""}
+            title="all"
+            $isactive={tagsSelected.length !== 0}
+          >
+            All
+          </ButtonText>
         </li>
-        {tags &&
-          tags.map((tag) => (
-            <li key={String(tag.id)}>
-              <ButtonText
-                title={tag.name}
-                onClick={() => handleTagSelected(tag.name)}
-                $isactive={tagsSelected.includes(tag.name)}
-              />
-            </li>
-          ))} */}
+        {categories.map((category) => (
+          <li key={category}>
+            <ButtonText
+              title={category}
+              onClick={() => handleTagSelected(category)}
+              className={tagsSelected.includes(category) ? "active" : ""}
+              $isactive={tagsSelected.length !== 0}
+            >
+              {category}
+            </ButtonText>
+          </li>
+        ))}
       </Menu>
 
       <Search>
         <Input
-          placeholder="Search for title"
+          placeholder="Search for name"
           icon={FiSearch}
-          onChange={(e) => setSearch(e.target.value)}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </Search>
 
       <Content>
         <Section title="Products">
           <ContainerProducts>
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <Product
                 key={String(product.name)}
                 data={product}
