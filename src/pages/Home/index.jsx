@@ -135,7 +135,7 @@ export function Home() {
               <Product
                 key={String(product.name)}
                 data={product}
-                onClick={() => handleDetails(product.name)}
+                onClick={() => handleDetails(product.code)}
               />
             ))}
           </ContainerProducts>
