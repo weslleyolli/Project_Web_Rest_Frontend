@@ -16,20 +16,20 @@ export function Promotion() {
   const [code, setCode] = useState("");
 
   const placeholderText = product && product.isPromotion
-  ? `Current Promotion Percentage: ${product.promotionPercentage}`
-  : "MIN: 1, MAX: 90";
+    ? `Current Promotion Percentage: ${product.promotionPercentage}`
+    : "MIN: 1, MAX: 90";
 
   async function handleNewPromotion() {
     if (!percentage) {
       toast.dark('Please fill all fields');
       return;
     }
-  
+
     const productData = {
       code,
       promotionPercentage: percentage,
     };
-  
+
     try {
       const token = localStorage.getItem("token");
       const config = {
@@ -39,7 +39,7 @@ export function Promotion() {
       };
 
       await api.post(`/products/${code}/promotion`, productData, config);
-  
+
       toast.dark('Promotion created successfully');
 
       setTimeout(() => {
@@ -50,8 +50,8 @@ export function Promotion() {
       toast.dark('Failed to create promotion');
     }
   }
-  
-  async function handleDeletePromotion(){
+
+  async function handleDeletePromotion() {
 
     const productData = {
       code,
@@ -67,7 +67,7 @@ export function Promotion() {
       };
 
       await api.delete(`/products/${code}/promotion`, config);
-  
+
       toast.dark('Promotion deleted with successfull');
 
       setTimeout(() => {
@@ -128,24 +128,24 @@ export function Promotion() {
             <div>
               <h5>Product Name</h5>
               <Input
-                  placeholder={product.name}
-                  disabled={product}
+                placeholder={product.name}
+                disabled={product}
               />
             </div>
 
             <div>
               <h5>Product Code</h5>
               <Input
-                  placeholder={product.code}
-                  disabled={product}
+                placeholder={product.code}
+                disabled={product}
               />
             </div>
 
             <div>
               <h5>EXP Date</h5>
               <Input
-                  placeholder={product.formattedExpDate}
-                  disabled={product}
+                placeholder={product.formattedExpDate}
+                disabled={product}
               />
             </div>
 
@@ -157,9 +157,11 @@ export function Promotion() {
                 disabled={product && product.isPromotion}
               />
             </div>
+            <div className="containerButtons">
+              <Button title="Save" onClick={handleNewPromotion} disabled={product && product.isPromotion} />
+              <Button title="Delete" onClick={handleDeletePromotion} disabled={product && !product.isPromotion} />
+            </div>
 
-            <Button title="Save" onClick={handleNewPromotion} disabled={product && product.isPromotion}/>
-            <Button title="Delete" onClick={handleDeletePromotion} disabled={product && !product.isPromotion} />
           </Form>
         ) : (
           <p>Loading...</p>

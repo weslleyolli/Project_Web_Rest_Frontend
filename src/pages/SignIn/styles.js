@@ -37,6 +37,7 @@ export const Form = styled.form`
     margin-top: 124px;
     color: #996DFF;
    }
+
 `
 
 export const Background = styled.div`
