@@ -1,37 +1,68 @@
-/* eslint-disable react/prop-types */
-
-
-import { Container, ImageProduct } from './styles'
-import { FiMinus, FiPlus, FiShoppingCart } from 'react-icons/fi'
-import { useState } from 'react'
+import PropTypes from 'prop-types';
+import { Container, ImageProduct } from './styles';
+import { FiMinus, FiPlus, FiShoppingCart } from 'react-icons/fi';
+import { useState } from 'react';
 
 export function Product({ data, ...rest }) {
-    const [quantity, setQuantity] = useState(0)
+    const [quantity, setQuantity] = useState(0);
 
     const handleAdd = () => {
-        setQuantity(quantity + 1)
-    }
+        setQuantity(quantity + 1);
+    };
 
     const handleRemove = () => {
-        setQuantity(quantity - 1)
-    }
+        if (quantity > 0) {
+            setQuantity(quantity - 1);
+        }
+    };
 
-    // console.log(data.src);
+    const renderPrice = () => {
+        if (data.isPromotion) {
+            // Se o produto está em promoção, exibe o preço promocional e a porcentagem de desconto
+            return (
+                <>
+                    <span className="discount-price">
+                        {new Intl.NumberFormat("pt-BR", {
+                            style: "currency",
+                            currency: "BRL",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                        }).format(data.promotionPrice)}
+                    </span>
+                    <span className="original-price">
+                        {new Intl.NumberFormat("pt-BR", {
+                            style: "currency",
+                            currency: "BRL",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                        }).format(data.price)}
+                    </span>
+                    <span className="discount-percentage">
+                        {data.promotionPercentage}%
+                    </span>
+                </>
+            );
+        } else {
+            // Se o produto não está em promoção, exibe apenas o preço original
+            return (
+                <span className="original-price">
+                    {new Intl.NumberFormat("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                    }).format(data.price)}
+                </span>
+            );
+        }
+    };
 
     return (
         <Container {...rest}>
-            <ImageProduct src={data.src}/>
+            <ImageProduct src={data.src} />
             <h1>{data.name}</h1>
             <p>{data.description}</p>
-            <h4>
-                 {/* Formatando para padrão BR com 2 casas após a vírgula */}
-                {new Intl.NumberFormat("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                }).format(data.price)}
-            </h4>
+            <h4>{renderPrice()}</h4>
             <footer>
                 <div>
                     <FiMinus onClick={handleRemove} />
@@ -43,5 +74,17 @@ export function Product({ data, ...rest }) {
                 </article>
             </footer>
         </Container>
-    )
+    );
 }
+
+Product.propTypes = {
+    data: PropTypes.shape({
+        src: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        price: PropTypes.number.isRequired,
+        isPromotion: PropTypes.bool,
+        promotionPrice: PropTypes.number,
+        promotionPercentage: PropTypes.number,
+    }),
+};
