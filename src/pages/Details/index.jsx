@@ -44,6 +44,10 @@ export function Details() {
     fetchProductDetails();
   }, [id]);
 
+  // async function handleCreatePromotion(){
+  //   navigate('/produc')
+  // }
+
   async function handleDeleteProduct() {
     try {
       const token = localStorage.getItem("token");
@@ -65,6 +69,10 @@ export function Details() {
     }
   }
 
+  async function handleCreatePromotion(){
+    navigate(`/products/${id}/promotion`)
+  }
+
   return (
     <Container>
       <Header />
@@ -77,7 +85,10 @@ export function Details() {
                 title="Delete Product"
                 onClick={handleDeleteProduct}
               />
-              <ButtonText title="Create promotion" />
+              <ButtonText 
+              title="Create promotion"
+              onClick={handleCreatePromotion}
+              />
             </div>
 
             <Section title="Product">

@@ -38,7 +38,7 @@ export function New() {
   // Verificando se há campos vazios
   async function handleNewNote() {
     if (!name || !src || !price || !qtd || !expDate) {
-      return alert("Please, fill in all fields");
+      return toast.dark('Please, fill all fields')
     }
 
     // Recuperando o token
@@ -47,7 +47,7 @@ export function New() {
     if (token) {
       setAuthToken(token);
     } else {
-      alert("Token not found");
+      toast.dark("Token not found");
       navigate("/");
       return;
     }
