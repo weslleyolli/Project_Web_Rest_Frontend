@@ -36,7 +36,7 @@ export function SignIn() {
             // Configure o token nos cabeçalhos
             setAuthToken(response.data.token);
         
-            toast.success('Bem-vindo!');
+            toast.dark('Bem-vindo!');
         
             setTimeout(() => {
                 setLoggedIn(true)

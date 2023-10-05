@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 import { FiFileText, FiLock, FiUser, FiMail, FiCalendar } from 'react-icons/fi';
@@ -52,12 +52,12 @@ export function SignUp() {
     try {
       const response = await axios.post('http://localhost:3000/create', formData);
       console.log('Usuário criado com sucesso:', response.data);
-      toast.success('Usuário criado com sucesso!');
+      toast.dark('Usuário criado com sucesso!');
 
       // Definindo um tempo de 2s antes de enviar para a páigna de login
       setTimeout(() => {
         navigate('/');
-      }, 2000);
+      }, 3000);
 
     } catch (error) {
       toast.error('Erro ao criar o usuário')
