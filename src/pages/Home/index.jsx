@@ -43,7 +43,14 @@ export function Home() {
   // Categorias
   useEffect(() => {
     async function fetchProducts() {
-      const response = await api.get(`/products`);
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await api.get(`/products`, config);
       setProducts(response.data);
 
       const allCategories = response.data.flatMap(

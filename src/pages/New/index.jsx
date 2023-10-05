@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
-import setAuthToken from '../../services/token';
+import setAuthToken from "../../services/token";
 
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
@@ -38,54 +38,55 @@ export function New() {
   // Verificando se há campos vazios
   async function handleNewNote() {
     if (!name || !src || !price || !qtd || !expDate) {
-        return alert("Please, fill in all fields");
+      return alert("Please, fill in all fields");
     }
 
     // Recuperando o token
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
-    if(token){
-        setAuthToken(token);
-    }else{
-        alert('Token not found');
-        navigate('/')
-        return;
+    if (token) {
+      setAuthToken(token);
+    } else {
+      alert("Token not found");
+      navigate("/");
+      return;
     }
 
     // Modelo da requisição
     const productData = {
-        name,
-        src,
-        code,
-        price: parseFloat(price),
-        qtd,
-        category: selectedTags,
-        expDate
-    }
+      name,
+      src,
+      code,
+      price: parseFloat(price),
+      qtd,
+      category: selectedTags,
+      expDate,
+    };
 
     // Fazendo a requisição
     try {
-        await api.post("/product", productData);
-        toast.dark('Product successfully created');
+      // Passando o token
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
-        setTimeout(() => {
-          navigate(-1);
+      // Fazendo a requisição
+      await api.post("/product", productData, config);
+      toast.dark("Product successfully created");
+
+      setTimeout(() => {
+        navigate(-1);
       }, 3000);
     } catch (err) {
-        console.error(err);
-        toast.dark('Error creating product');
+      console.error(err);
+      toast.dark("Error creating product");
     }
   }
 
-//   useEffect(() => {
-//     const token = localStorage.getItem('token');
-
-//     if (token){
-//         setAuthToken(token);
-//     }
-//   }, []);
-
-// Criando a página de produtos
+  // Criando a página de produtos
   return (
     <Container>
       <Header />

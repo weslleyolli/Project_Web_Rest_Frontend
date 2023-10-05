@@ -7,6 +7,7 @@ import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { Section } from "../../components/Section";
 import { ButtonText } from "../../components/ButtonText";
+import { ToastContainer, toast } from "react-toastify";
 
 export function Details() {
   const { id } = useParams();
@@ -16,7 +17,14 @@ export function Details() {
   useEffect(() => {
     async function fetchProductDetails() {
       try {
-        const response = await api.get(`/products/${id}`);
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        const response = await api.get(`/products/${id}`, config);
         // Formatar a data expDate para "dd/mm/yyyy"
         const date = new Date(response.data.expDate);
         const day = date.getDate().toString().padStart(2, "0");
@@ -38,10 +46,21 @@ export function Details() {
 
   async function handleDeleteProduct() {
     try {
-      await api.delete(`/product/delete/${id}`);
-      // Após excluir o produto, redirecionar de volta à página inicial ou para qualquer outra rota desejada
-      navigate("/home");
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      await api.delete(`/product/delete/${id}`, config);
+
+      toast.dark("Product deleted successfully");
+      setTimeout(() => {
+        navigate(-1);
+      }, 2000);
     } catch (error) {
+      toast.dark("Error for delete product");
       console.error("Erro ao excluir o produto:", error);
     }
   }
@@ -54,7 +73,10 @@ export function Details() {
         {product && (
           <Content>
             <div>
-              <ButtonText title="Delete Product" onClick={handleDeleteProduct} />
+              <ButtonText
+                title="Delete Product"
+                onClick={handleDeleteProduct}
+              />
               <ButtonText title="Create promotion" />
             </div>
 
@@ -68,17 +90,18 @@ export function Details() {
 
             <Section title="Value">
               {new Intl.NumberFormat("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                }).format(product.price)}
+                style: "currency",
+                currency: "BRL",
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }).format(product.price)}
             </Section>
 
             <Button title="Back" onClick={() => navigate("/home")} />
           </Content>
         )}
       </main>
+      <ToastContainer />
     </Container>
   );
 }
