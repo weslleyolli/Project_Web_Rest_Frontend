@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services/api";
-
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
-
 import { Container, Form } from "./styles";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -22,6 +20,12 @@ export function Promotion() {
   async function handleNewPromotion() {
     if (!percentage) {
       toast.dark('Please fill all fields');
+      return;
+    }
+
+    // Verifica se a porcentagem está dentro do intervalo desejado
+    if (percentage < 1 || percentage > 90) {
+      toast.dark('Percentage must be between 1 and 90');
       return;
     }
 
@@ -158,6 +162,7 @@ export function Promotion() {
                 placeholder={placeholderText}
                 onChange={(e) => setPercentage(e.target.value)}
                 disabled={product && product.isPromotion}
+                value={percentage}
               />
             </div>
             <div className="containerButtons">
