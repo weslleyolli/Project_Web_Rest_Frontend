@@ -97,6 +97,9 @@ export const ImageProduct = styled.div`
 export const ContainerPromotions = styled.button`
     display: flex;
     gap: 10px;
+    align-items: center;
+
+    background-color: transparent;
 
     > p {
         opacity: 0.5;
