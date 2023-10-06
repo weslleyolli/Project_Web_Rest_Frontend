@@ -95,11 +95,14 @@ export const ImageProduct = styled.div`
 `;
 
 export const ContainerPromotions = styled.button`
+    position: relative;
     display: flex;
     gap: 10px;
     align-items: center;
 
     background-color: transparent;
+    color:${({ theme }) => theme.COLORS.WHITE};
+    border: none;
 
     > p {
         opacity: 0.5;
@@ -107,6 +110,8 @@ export const ContainerPromotions = styled.button`
     }
 
     > h8 {
+        position: absolute;
+        top: 0;
         font-size: 10px;
     }
 
