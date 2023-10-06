@@ -111,7 +111,8 @@ export const ContainerPromotions = styled.button`
 
     > h8 {
         position: absolute;
-        top: 0;
+        top: -100px;
+        right: 20px;
         font-size: 10px;
     }
 
