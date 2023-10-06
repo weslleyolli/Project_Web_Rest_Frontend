@@ -37,9 +37,9 @@ export function Product({ data, ...rest }) {
                             maximumFractionDigits: 2,
                         }).format(data.promotionPrice)}
                     </span>
-                    <h8 className="discount-percentage">
-                        {data.promotionPercentage}%
-                    </h8>
+                    <h6 className="discount-percentage">
+                        -{data.promotionPercentage}%
+                    </h6>
                 </ContainerPromotions>
             );
         } else {

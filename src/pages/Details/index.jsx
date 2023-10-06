@@ -88,7 +88,7 @@ export function Details() {
                 onClick={handleEditProduct}
               />
               <ButtonText 
-                title="Create promotion"
+                title="Manage promotion"
                 onClick={handleCreatePromotion}
               />
               <ButtonText

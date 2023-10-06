@@ -109,11 +109,11 @@ export const ContainerPromotions = styled.button`
         text-decoration: line-through
     }
 
-    > h8 {
+    > h6 {
         position: absolute;
         top: -75px;
-        right: 5px;
-        font-size: 10px;
+        right: -14px;
+        font-size: 12px;
     }
 
 `

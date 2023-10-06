@@ -48,7 +48,7 @@ export function SignIn() {
     }
 
     if(loggedIn){
-        return <Navigate to="/home" />
+        return <Navigate to="home" />
     }
 
     return (
