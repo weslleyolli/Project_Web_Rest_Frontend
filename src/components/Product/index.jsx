@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Container, ImageProduct } from './styles';
+import { Container, ContainerPromotions, ImageProduct } from './styles';
 import { FiMinus, FiPlus, FiShoppingCart } from 'react-icons/fi';
 import { useState } from 'react';
 
@@ -20,7 +20,15 @@ export function Product({ data, ...rest }) {
         if (data.isPromotion) {
             // Se o produto está em promoção, exibe o preço promocional e a porcentagem de desconto
             return (
-                <>
+                <ContainerPromotions>
+                    <p className="original-price">
+                        {new Intl.NumberFormat("pt-BR", {
+                            style: "currency",
+                            currency: "BRL",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                        }).format(data.price)}
+                    </p>
                     <span className="discount-price">
                         {new Intl.NumberFormat("pt-BR", {
                             style: "currency",
@@ -29,18 +37,10 @@ export function Product({ data, ...rest }) {
                             maximumFractionDigits: 2,
                         }).format(data.promotionPrice)}
                     </span>
-                    <span className="original-price">
-                        {new Intl.NumberFormat("pt-BR", {
-                            style: "currency",
-                            currency: "BRL",
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                        }).format(data.price)}
-                    </span>
-                    <span className="discount-percentage">
+                    <h8 className="discount-percentage">
                         {data.promotionPercentage}%
-                    </span>
-                </>
+                    </h8>
+                </ContainerPromotions>
             );
         } else {
             // Se o produto não está em promoção, exibe apenas o preço original

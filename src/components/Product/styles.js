@@ -94,3 +94,17 @@ export const ImageProduct = styled.div`
     background-size: cover;
 `;
 
+export const ContainerPromotions = styled.button`
+    display: flex;
+    gap: 10px;
+
+    > p {
+        opacity: 0.5;
+        text-decoration: line-through
+    }
+
+    > h8 {
+        font-size: 10px;
+    }
+
+`
