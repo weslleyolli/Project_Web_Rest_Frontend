@@ -8,7 +8,13 @@
 ## 💭 About
 
 <a id="#ancora1"></a>
-This is a repository for publish our project, this repository contains a FrontEnd Rest Project
+This is a repository for publish our project, this repository contains a FrontEnd Rest Project.
+
+**OBS1:
+Bug: Por algum motivo que não consegui resolver, a rota de criar usuário e a rota home só carregam após apertar o F5 ou digitar direto no navegador (A HOME NÃO PQ TEM PROTEÇÃO DE LOGIN)**
+
+**OBS2:
+Funcionário só cria um, cliente são inúmeros**
 
 ## 🧪 Technologies
 
@@ -89,7 +95,3 @@ Link: https://github.com/FCabral07/Project_WEB_Rest/
 ## LOGOUT
 
 - **Descrição:** Desconecta o usuário e retira o token presente no localStorage do navegador.
-
-**Por algum motivo que não consegui resolver, a rota de criar usuário e a rota home só carregam após apertar o F5 ou digitar direto no navegador (A HOME NÃO PQ TEM PROTEÇÃO DE LOGIN)**
-
-**Funcionário só cria um, cliente são inúmeros**
